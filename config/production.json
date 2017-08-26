@@ -1,0 +1,14 @@
+{
+	"server": {
+		"port": 3000,
+		"hostSkill": true
+	},
+	"dynamoDB": {
+		"tables": {
+			"users": "Tabs"
+		}
+	},
+	"aws": {
+		"region": "us-east-1"
+	}
+}

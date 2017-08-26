@@ -1,0 +1,7 @@
+TabPersonIntent add {amount} dollars to {person} Tab
+TabPersonIntent add $ {amount} to {person} Tab
+TabPersonIntent charge $ {amount} to {person} Tab
+TabStatusIntent what is {person}'s Tab
+TabStatusIntent what is {person} Tab
+TabStatusIntent status of {person} tab
+TabStatusIntent tell me about {person} tab
