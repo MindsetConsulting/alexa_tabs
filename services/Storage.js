@@ -23,6 +23,7 @@ class UserStorage {
   }
 
   put(data) {
+    data = data || {};
     debug('put', JSON.stringify(data, null, 2));
     if (!data.createdDate) {
       data.createdDate = moment().toISOString();

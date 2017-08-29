@@ -44,8 +44,9 @@ function loadUser(alexaEvent) {
 
 function saveUserToDynamo(alexaEvent) {
   const store = new Storage(config.dynamoDB.tables.users);
-  delete alexaEvent.model.user.accessToken;
-
+  alexaEvent.model.user = alexaEvent.model.user || {};
+  _.unset(alexaEvent, 'model.user.accessToken');
+  _.set(alexaEvent, 'model.user.userId', alexaEvent.user.userId);
   return store.put(alexaEvent.model.user);
 }
 

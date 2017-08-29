@@ -21,7 +21,13 @@ const views = {
   'tab.askForAmount.ask': 'i need the amount. do you want to add more?',
   'tab.askForAmount.reprompt': 'please tell how much',
 
-  'tab.status.ask': 'Let\'s see you have $7. can i help you with something else?',
+  'tab.askForNameOnStatus.ask': 'i need a name. please specify a name',
+  'tab.askForNameOnStatus.reprompt': 'please specify a name',
+
+  'tab.statusNoAmount.ask': 'Tab is empty. Is there something else i can help you with?',
+  'tab.statusNoAmount.reprompt': 'Is there something else i can help you with?',
+
+  'tab.status.ask': 'Let\'s see. {person}\'s tab is ${amount}. can i help you with something else?',
   'tab.status.repromt': 'can i help you with something else?',
 };
 

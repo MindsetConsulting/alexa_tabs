@@ -6,6 +6,8 @@ exports.register = function register(skill) {
   skill.onIntent('LaunchIntent', () => ({reply: 'launch.welcome', to: 'entry'}));
   skill.onIntent('AMAZON.HelpIntent', () => ({reply: 'help.general', to: 'entry'}));
   skill.onIntent('TabPersonIntent', (alexaEvent) => {
+    if (alexaEvent.intent.name === 'TabStatusIntent') return ({ to: 'TabStatusIntent' });
+
     const person = _.get(alexaEvent, 'intent.params.person');
     const amount = _.get(alexaEvent, 'intent.params.amount', 0);
 
@@ -13,15 +15,15 @@ exports.register = function register(skill) {
     alexaEvent.model.amount = _.toNumber(alexaEvent.model.amount || amount);
 
     if (_.isEmpty(alexaEvent.model.person)) {
-      return ({reply: 'tab.askForName', to: 'entry'});
+      return ({reply: 'tab.askForName', to: 'TabPersonIntent'});
     }
 
     if (alexaEvent.model.amount <= 0) {
-      return ({reply: 'tab.askForAmount', to: 'entry'});
+      return ({reply: 'tab.askForAmount', to: 'TabPersonIntent'});
     }
 
     let totalAmount = _.get(alexaEvent, `model.user.tabs.${alexaEvent.model.person}.amount`, 0);
-    console.log('totalAmount', totalAmount, alexaEvent.model.amount);
+    // console.log('totalAmount', totalAmount, alexaEvent.model.amount);
     totalAmount = _.toNumber(totalAmount) || 0;
     totalAmount += alexaEvent.model.amount;
 
@@ -31,11 +33,32 @@ exports.register = function register(skill) {
     return ({reply: 'tab.addToTab', to: 'clear'});
   });
 
+  skill.onIntent('TabStatusIntent', (alexaEvent) => {
+    if (alexaEvent.intent.name === 'TabPersonIntent') ({ to: 'TabPersonIntent' });
+
+    const person = _.get(alexaEvent, 'intent.params.person');
+
+    alexaEvent.model.person = _.toLower(alexaEvent.model.person || person);
+
+    if (_.isEmpty(person)) {
+      return ({reply: 'tab.askForNameOnStatus', to: 'entry'});
+    }
+
+    let totalAmount = _.get(alexaEvent, `model.user.tabs.${alexaEvent.model.person}.amount`, 0);
+    totalAmount = _.toNumber(totalAmount) || 0;
+
+    alexaEvent.model.amount = _.toNumber(alexaEvent.model.amount || totalAmount);
+
+    if (alexaEvent.model.amount <= 0) {
+      return ({reply: 'tab.statusNoAmount', to: 'clear'});
+    }
+    return ({reply: 'tab.status', to: 'entry'})
+  });
+
   skill.onState('clear', (alexaEvent) => {
     _.unset(alexaEvent, 'model.person');
     _.unset(alexaEvent, 'model.amount');
 
     return ({ to: 'entry' })
   });
-  skill.onIntent('TabStatusIntent', () => ({reply: 'tab.status', to: 'entry'}));
 };

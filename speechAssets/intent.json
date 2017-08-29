@@ -1,6 +1,27 @@
 {
   "intents": [
     {
+      "intent": "LaunchIntent"
+    },
+    {
+      "intent": "PersonOnlyIntent",
+      "slots": [
+        {
+          "name": "person",
+          "type": "AMAZON.US_FIRST_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "AmountOnlyIntent",
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
       "intent": "TabPersonIntent",
       "slots": [
         {
@@ -9,7 +30,7 @@
         },
         {
           "name": "amount",
-          "type": "AMAZON.US_FIRST_NAME"
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -21,23 +42,17 @@
           "type": "AMAZON.US_FIRST_NAME"
         }
       ]
-    }
-    , {
+    }, {
       "intent": "AMAZON.HelpIntent"
-    }
-    , {
+    }, {
       "intent": "AMAZON.NoIntent"
-    }
-    , {
+    }, {
       "intent": "AMAZON.RepeatIntent"
-    }
-    , {
+    }, {
       "intent": "AMAZON.StopIntent"
-    }
-    , {
+    }, {
       "intent": "AMAZON.CancelIntent"
-    }
-    , {
+    }, {
       "intent": "AMAZON.YesIntent"
     }
   ]
