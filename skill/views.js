@@ -29,6 +29,9 @@ const views = {
 
   'tab.status.ask': 'Let\'s see. {person}\'s tab is ${amount}. Is there something else i can help you with?',
   'tab.status.repromt': 'Is there something else i can help you with?',
+
+  'exit.general.tell': 'Thanks for using tab control. Have a nice day!',
+  'error.unknownIntent.say': 'Sorry i didn\'t understand. '
 };
 
 // Compile views

@@ -61,4 +61,18 @@ exports.register = function register(skill) {
 
     return ({ to: 'entry' })
   });
+
+  skill.onIntent('AMAZON.RepeatIntent', (alexaEvent) => {
+    if (alexaEvent.session.new) {
+      return { to: 'LaunchIntent' };
+    }
+
+    return alexaEvent.session.attributes.reply;
+  });
+
+  skill.onIntent('AMAZON.CancelIntent', () => ({ to: 'exit' }));
+  skill.onIntent('AMAZON.StopIntent', () => ({ to: 'exit' }));
+  skill.onIntent('AMAZON.NoIntent', () => ({ to: 'exit' }));
+  skill.onIntent('AMAZON.YesIntent', () => ({ to: 'AMAZON.HelpIntent' }));
+  skill.onState('exit', (alexaEvent) => ({ reply: 'exit.general' }));
 };

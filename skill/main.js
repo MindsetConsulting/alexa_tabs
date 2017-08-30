@@ -62,17 +62,12 @@ function onUnhandledState(alexaEvent, reply) {
     return { to: 'LaunchIntent' };
   }
 
-  // Close on negation/cancel/stop intents
-  if (_.includes(['AMAZON.NoIntent'], alexaEvent.intent.name)) {
-    return { to: 'exit' };
-  }
-
   const lastReply = _.get(alexaEvent, 'session.attributes.reply.reply');
   reply = _.isArray(lastReply) ? _.last(lastReply) : lastReply;
 
   return {
     to: alexaEvent.session.attributes.reply.to,
-    reply: _.concat('Error.UnknownIntent', reply),
+    reply: _.concat('error.unknownIntent', reply),
   };
 }
 
