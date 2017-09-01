@@ -12,6 +12,7 @@ exports.register = function register(skill) {
     const amount = _.get(alexaEvent, 'intent.params.amount', 0);
 
     alexaEvent.model.person = _.toLower(alexaEvent.model.person || person);
+    alexaEvent.model.person = _.replace(alexaEvent.model.person, '\'s', '');
     alexaEvent.model.amount = _.toNumber(alexaEvent.model.amount || amount);
 
     if (_.isEmpty(alexaEvent.model.person)) {
@@ -39,6 +40,7 @@ exports.register = function register(skill) {
     const person = _.get(alexaEvent, 'intent.params.person');
 
     alexaEvent.model.person = _.toLower(alexaEvent.model.person || person);
+    alexaEvent.model.person = _.replace(alexaEvent.model.person, '\'s', '');
 
     if (_.isEmpty(person)) {
       return ({reply: 'tab.askForNameOnStatus', to: 'entry'});

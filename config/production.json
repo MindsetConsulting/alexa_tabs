@@ -5,7 +5,7 @@
 	},
 	"dynamoDB": {
 		"tables": {
-			"users": "Tabs"
+			"users": "TabsV2"
 		}
 	},
 	"aws": {
